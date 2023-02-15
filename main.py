@@ -2,6 +2,17 @@ import pygame as pg
 from boid import Boid
 from flock import Flock
 
+SCREEN_WIDTH = 800 # Width of the screen
+SCREEN_HEIGHT = 600 # Height of the screen 
+NUM_BOIDS = 50 # Number of boids in the simulation 
+BOID_RADIUS = 5 # Radius of the boids
+BOID_SPEED = 3 # Speed of the boids
+BOID_ACCELERATION = 0.1 # Acceleration of the boids
+ALIGNMENT_WEIGHT = 1.0 # Weight of the alignment rule
+COHESION_WEIGHT = 1.0 # Weight of the cohesion rule
+SEPARATION_WEIGHT = 1.5 # Weight of the separation rule
+AVOIDANCE_WEIGHT = 2.0 # Weight of the avoidance rule
+
 def main():
     # initialize pygame and screen with borders
     pg.init()
