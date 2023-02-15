@@ -1,9 +1,8 @@
 from boid import Boid
 import numpy as np
 
-
 class Flock(Boid):
-    # create a flock of boids with a center of mass
+    
     def __init__(self, x, y):
         self.x = x
         self.y = y
