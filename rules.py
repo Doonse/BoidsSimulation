@@ -24,6 +24,12 @@ class Rules:
         # Move towards the average velocity
         pass
 
+    def avoidance(self, boid):
+        # Boids avoid hitting walls
+        # Find the distance between the boid and the walls
+        # If the distance is less than a certain threshold, move away from the wall
+        pass
+
     def update(self):
         # Update the boids
         pass
