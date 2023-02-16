@@ -13,7 +13,7 @@ def main(WIDTH, HEIGHT):
     screen.fill("BLACK")
     pg.display.set_caption("Boids")
     clock = pg.time.Clock()
-    boids = [Boid(random.randrange(100, 800), random.randrange(100, 800), 1, 1) for i in range(20)]
+    boids = [Boid(random.randrange(0, 800), random.randrange(0, 800), 1, 1) for i in range(20)]
     running = True
     while running:
         for event in pg.event.get():
