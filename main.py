@@ -2,7 +2,6 @@ import pygame as pg
 import random 
 import numpy as np
 from boid import Boid
-from rules import Rules
 
 WIDTH = 800
 HEIGHT = 600
