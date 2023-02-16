@@ -1,7 +1,6 @@
 import pygame as pg
 from pygame import Vector2 as Vector
 import random
-import math
 from rules import Rules
 
 class Boid:
@@ -28,6 +27,7 @@ class Boid:
             self.position.y = 0
         elif self.position.y < 0:
             self.position.y = height
+        
 
     
     
