@@ -2,10 +2,10 @@ import pygame as pg
 import random 
 import numpy as np
 from boid import Boid
-from rules import Rules
 
 WIDTH = 800
 HEIGHT = 600
+
 
 def main(WIDTH, HEIGHT):
     pg.init()
@@ -13,7 +13,7 @@ def main(WIDTH, HEIGHT):
     screen.fill("BLACK")
     pg.display.set_caption("Boids")
     clock = pg.time.Clock()
-    boids = [Boid(WIDTH - 100, HEIGHT - 100, 5, 5) for i in range(100)] # 40 boids
+    boids = [Boid(random.randrange(0, 800), random.randrange(0, 800), 1, 1) for i in range(20)]
     running = True
     while running:
         for event in pg.event.get():
