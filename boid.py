@@ -3,9 +3,8 @@ from pygame import Vector2 as Vector
 import random
 from rules import Rules
 
-class Boid(Rules):
+class Boid:
     def __init__(self, x, y):
-        super().__init__(x, y)
         self.position = Vector(x, y)
         self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1))
 
@@ -16,20 +15,19 @@ class Boid(Rules):
     # This is where the three rules are called, which move the boids
     def update(self, boids):
         # Weights of the rules
-        w1 = 10 # Rule1: Move towards the center of mass of neighbours
-        w2 = 10 # Rule2: Keep a small distance away from other objects 
-        w3 = 10 # Rule3: Try to match velocity with near boids
+        w1 = 0.3 # Rule1: Move towards the center of mass of neighbours
+        w2 = 0.3 # Rule2: Keep a small distance away from other objects 
+        w3 = 0.3 # Rule3: Try to match velocity with near boids
         w4 = -1 # Rule4: Tend to the palace
 
         # Find the center of the boids before applying the rules 
 
         c = Rules.find_center(self, boids)
-        r1 = self.fly_towards_center(boids, c) * w1
-        for boid in boids:
-            boid.velocity += r1 + self.keep_distance_away(boid) * w2 + self.match_velocity(boid) * w3 # + self.tend_to_place(boid) * w4
 
-            boid.velocity.scale_to_length(1)
-            boid.position += boid.velocity / 10
+        self.velocity += Rules.fly_towards_center(self, boids, c) * w1 + Rules.keep_distance_away(self, boids) * w2 + Rules.match_velocity(self, boids) * w3 # + self.tend_to_place(boid) * w4
+
+        self.velocity.scale_to_length(5)
+        self.position += self.velocity
 
     # Bounding the position of the boids to the screen so they don't fly off        
     def bound_position(self, boids):
