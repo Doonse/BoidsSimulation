@@ -9,32 +9,11 @@ class Rules:
         self.width = width
         self.height = height
     
-    """ def cohesion(self, boids):
-        center = Vector(0, 0)
-        for boid in boids:
-            center += boid.position
-        center /= len(boids)
-        return 0.2 * (center - self.position) / 100
-    
-    def separation(self, boids):
-        distance = Vector(0, 0)
-        for boid in boids:
-            if boid.position != self.position:
-                distance += 0.1 * (self.position - boid.position) / (self.position.distance_to(boid.position) ** 4)
-        return distance
-    
-    def alignment(self, boids):
-        velocity = Vector(0, 0) 
-        for boid in boids:
-            velocity += boid.velocity
-        velocity /= len(boids)
-        return  0.1 * (velocity - self.velocity) / 8 """
-    
     # Implementing the first rule: (b_1.position + b_2.position + ... + b_{J-1}.position + b_{J+1}.position + ... + b_N.position) / (N-1)
     def fly_towards_center(self, boids):
 
         # Weight of the rule
-        weight = 0.2
+        weight = 0.3
         
         # Initialize center vector
         center = Vector(0, 0) 
@@ -59,7 +38,7 @@ class Rules:
     def keep_distance_away(self, boids):
 
         # Weight of the rule
-        weight = 0.1
+        weight = 0.2
 
         # Initialize distance vector
         distance = Vector(0, 0)
@@ -71,10 +50,10 @@ class Rules:
                 if boid.position != self.position:
                     
                     # If the distance between the boid and the boid we are calculating the rule for is less than 100
-                    if self.position.distance_to(boid.position) < 100:
+                    if self.position.distance_to(boid.position) < 10:
                             
                             # Add the distance vector to the distance vector
-                            distance -= weight * (self.position - boid.position)
+                            distance += weight * (self.position - boid.position)
 
         # Return the distance vector
         return distance
@@ -84,7 +63,7 @@ class Rules:
     def match_velocity(self, boids):
             
             # Weight of the rule
-            weight = 0.1
+            weight = 0.3
     
             # Initialize velocity vector
             velocity = self.velocity
