@@ -4,8 +4,8 @@ import numpy as np
 from boid import Boid
 from rules import Rules
 
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1200
+HEIGHT = 900
 
 def main(WIDTH, HEIGHT):
     pg.init()
