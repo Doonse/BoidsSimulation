@@ -13,10 +13,12 @@ class Boid(Rules):
         pg.draw.circle(screen, (255, 255, 255), self.position, 5)
 
     def update(self, boids): # This is where the three rules are called, which move the boids
-        self.velocity = self.velocity + Rules.fly_towards_center(self, boids)  + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
-        self.velocity.scale_to_length(6)
+        self.velocity = self.velocity + Rules.fly_towards_center(self, boids) + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
+
+        # Limit the velocity of the boids to 6 and update the position
+        self.velocity.scale_to_length(6) 
         self.position += self.velocity
-    
+        
     def edge_wrap(self, width, height):
         if self.position.x > width:
             self.position.x = 0
