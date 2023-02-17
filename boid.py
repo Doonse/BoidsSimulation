@@ -16,7 +16,7 @@ class Boid:
         pg.draw.circle(screen, (255, 255, 255), self.position, 5)
 
     def update(self, boids): # This is where the three rules are called, which move the boids
-        self.velocity = self.velocity + Rules.cohesion(self, boids) + Rules.separation(self, boids) + Rules.alignment(self, boids)
+        self.velocity = self.velocity + Rules.fly_towards_center(self, boids) + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
         self.velocity.scale_to_length(5)
         self.position += self.velocity
     
