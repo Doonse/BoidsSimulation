@@ -3,12 +3,10 @@ from pygame import Vector2 as Vector
 import random
 
 class Rules:
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y):
         self.position = Vector(x, y)
         self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1))
-        self.width = width
-        self.height = height
-    
+
     # Implementing the first rule: (b_1.position + b_2.position + ... + b_{J-1}.position + b_{J+1}.position + ... + b_N.position) / (N-1)
     def fly_towards_center(self, boids):
 
