@@ -44,8 +44,8 @@ def main(WIDTH, HEIGHT):
             # The three rules are cohesion, separation and alignment
             boid.update(boids)
 
-            # Wrap boids around the screen if they go out of bounds
-            boid.edge_wrap(WIDTH, HEIGHT)
+            # Bound the boids to the screen so they don't fly off
+            boid.bound_position(boids)
 
         # Update the screen
         pg.display.flip()
