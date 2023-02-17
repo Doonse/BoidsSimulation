@@ -69,3 +69,27 @@ class Rules:
 
             # Return the rule multiplied by weight of the rule
             return (velocity - self.velocity) / 8
+
+
+    def tend_to_place(self, boids, hoids):
+        # Initialize center vector
+        center = Vector(0, 0)
+
+        # Loop through all boids
+        for boid in boids:
+            for hoid in hoids:
+
+                # If the boid is not the boid we are calculating the rule for
+                if boid.position != self.position:
+                    
+                    if abs(boid.position.x - hoid.position.x) < 50:
+                        center.x += 1
+
+                    # Add the position of the boid to the center vector
+                    center += boid.position
+
+        # Divide the center vector by the number of boids minus one
+        center = center / (len(boids) - 1)
+
+        # Return the rule multiplied by weight of the rule
+        return (center - self.position) / 100
