@@ -9,7 +9,7 @@ class Rules:
         self.width = width
         self.height = height
     
-    def cohesion(self, boids):
+    """ def cohesion(self, boids):
         center = Vector(0, 0)
         for boid in boids:
             center += boid.position
@@ -28,7 +28,27 @@ class Rules:
         for boid in boids:
             velocity += boid.velocity
         velocity /= len(boids)
-        return  0.1 * (velocity - self.velocity) / 8
+        return  0.1 * (velocity - self.velocity) / 8 """
     
-    
+    def fly_towards_center(self, boids):
+        # Implementing the first rule: (b_1.position + b_2.position + ... + b_{J-1}.position + b_{J+1}.position + ... + b_N.position) / (N-1)
+        
+        # Initialize center vector
+        center = Vector(0, 0) 
 
+        # Loop through all boids
+        for boid in boids: 
+
+            # If the boid is not the boid we are calculating the rule for   
+            if boid.position != self.position: 
+
+                # Add the position of the boid to the center vector
+                center += boid.position 
+
+        # Divide the center vector by the number of boids minus one
+        center = center / len(boids) - 1 
+
+        # Return the rule multiplied by weight of the rule
+        return 0.2 * (center - self.position) / 100 
+
+    
