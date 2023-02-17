@@ -5,20 +5,18 @@ from rules import Rules
 
 class Boid:
     def __init__(self, x, y, width, height):
-        self.position = Vector(x, y)
-        self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1))
-        self.acceleration = Vector(0, 0)
-        self.width = width
-        self.height = height
-        self.max_speed = 5
-        self.max_force = 0.1
+        self.position = Vector(x, y) # Position vector
+        self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1)) # Velocity vector
+        self.acceleration = Vector(0, 0) # Acceleration vector
+        self.width = width # Width of the screen
+        self.height = height # Height of the screen
+        self.max_speed = 5 # Maximum speed of the boids
 
-    def draw(self, screen):
+    def draw(self, screen): # Draw the boids on the screen
         pg.draw.circle(screen, (255, 255, 255), self.position, 5)
 
-    def update(self, boids):
-        self.acceleration += Rules.cohesion(self, boids) + Rules.separation(self, boids) + Rules.alignment(self, boids)
-        self.velocity += self.acceleration
+    def update(self, boids): # This is where the three rules are called, which move the boids
+        self.velocity = self.velocity + Rules.cohesion(self, boids) + Rules.separation(self, boids) + Rules.alignment(self, boids)
         self.velocity.scale_to_length(5)
         self.position += self.velocity
     
