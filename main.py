@@ -16,13 +16,11 @@ def main(WIDTH, HEIGHT):
     pg.display.set_caption("Boids")
     clock = pg.time.Clock()
 
-
     # Initialize boids with random positions as explained in pseudocode http://www.kfish.org/boids/pseudocode.html
     # Random velociies are assigned in the Boid class as well
     # Acceleration vector is initialized to 0
     # Rest is constant in the Boid class except for the width and height, which are given as an argument
-    boids = [Boid(random.randrange(0, 800), random.randrange(0, 800), 1, 1) for i in range(100)] 
-
+    boids = [Boid(random.randrange(500, 800), random.randrange(0, 500), 5, 5) for i in range(100)] 
 
     # Main loop
     running = True
