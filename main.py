@@ -6,7 +6,6 @@ from boid import Boid
 WIDTH = 800
 HEIGHT = 600
 
-
 def main(WIDTH, HEIGHT):
 
     # Initialize pygame
@@ -40,8 +39,7 @@ def main(WIDTH, HEIGHT):
             
             # Update boids position and velocity 
             # This calls the update function in the Boid class, which consists of the three rules
-            # The three rules are called from the Rules class
-            # The three rules are cohesion, separation and alignment
+            # The rules control the movement of the boids 
             boid.update(boids)
 
             # Bound the boids to the screen so they don't fly off
