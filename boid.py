@@ -9,24 +9,45 @@ class Boid(Rules):
         self.position = Vector(x, y)
         self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1))
 
-    def draw(self, screen): # Draw the boids on the screen
+    # Draw the boids on the screen
+    def draw(self, screen):
         pg.draw.circle(screen, (255, 255, 255), self.position, 5)
 
-    def update(self, boids): # This is where the three rules are called, which move the boids
-        self.velocity = self.velocity + Rules.fly_towards_center(self, boids)  + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
+    # This is where the three rules are called, which move the boids
+    def update(self, boids):
+        # Weights of the rules
+        w1 = 0.5 # Rule1: Move towards the center of mass of neighbours
+        w2 = 0.3 # Rule2: Keep a small distance away from other objects 
+        w3 = 0.3 # Rule3: Try to match velocity with near boids
+
+        self.velocity = self.velocity + w1*Rules.fly_towards_center(self, boids) + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
+
+        # Limit the velocity of the boids to 6 and update the position
         self.velocity.scale_to_length(6)
         self.position += self.velocity
-    
-    def edge_wrap(self, width, height):
-        if self.position.x > width:
-            self.position.x = 0
-        elif self.position.x < 0:
-            self.position.x = width
-        if self.position.y > height:
-            self.position.y = 0
-        elif self.position.y < 0:
-            self.position.y = height
-        
 
-    
-    
+    # Bounding the position of the boids to the screen so they don't fly off        
+    def bound_position(self, boids):
+        Xmin, Xmax, Ymin, Ymax = 0, 750, 0, 550 # Set the boundaries of the screen 
+        vec = Vector(0, 0) # Initialize the vector to 0
+
+        for boid in boids:
+            if boid.position != self.position:
+                if self.position.x < Xmin:
+                    vec.x += 1 
+                elif self.position.x > Xmax:
+                    vec.x -= 1
+                if self.position.y < Ymin:
+                    vec.y += 1
+                elif self.position.y > Ymax:
+                    vec.y -= 1
+                
+        return vec
+
+
+
+
+    # Anti-flocking behaviour
+    # Negate the first rule (moving towards the centre of mass of neighbours)
+    def anti_flock(self, boids):
+        pass

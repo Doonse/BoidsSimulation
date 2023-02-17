@@ -9,9 +9,6 @@ class Rules:
 
     # Implementing the first rule: (b_1.position + b_2.position + ... + b_{J-1}.position + b_{J+1}.position + ... + b_N.position) / (N-1)
     def fly_towards_center(self, boids):
-
-        # Weight of the rule
-        weight = 0.5
         
         # Initialize center vector
         center = Vector(0, 0) 
@@ -29,14 +26,11 @@ class Rules:
         center = center / (len(boids) - 1) 
 
         # Return the rule multiplied by weight of the rule
-        return weight * (center - self.position) / 100 
+        return (center - self.position) / 100 
 
 
     # Implementing second rule, which makes sure boids don't collide with each other
     def keep_distance_away(self, boids):
-
-        # Weight of the rule
-        weight = 0.3
 
         # Initialize distance vector
         distance = Vector(0, 0)
@@ -51,7 +45,7 @@ class Rules:
                     if self.position.distance_to(boid.position) < 10:
                             
                             # Add the distance vector to the distance vector
-                            distance += weight * (self.position - boid.position)
+                            distance += (self.position - boid.position)
 
         # Return the distance vector
         return distance
@@ -59,9 +53,6 @@ class Rules:
 
     # Implementing the third rule, which adjusts the velocity of the boids to match the velocity of the boids around them
     def match_velocity(self, boids):
-            
-            # Weight of the rule
-            weight = 0.4
     
             # Initialize velocity vector
             velocity = self.velocity
@@ -77,4 +68,4 @@ class Rules:
             velocity = velocity / (len(boids) - 1)
 
             # Return the rule multiplied by weight of the rule
-            return weight * (velocity - self.velocity) / 8
+            return (velocity - self.velocity) / 8
