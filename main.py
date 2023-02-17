@@ -2,6 +2,7 @@ import pygame as pg
 import random 
 import numpy as np
 from boid import Boid
+from hoid import Hoid
 
 WIDTH = 800
 HEIGHT = 600
@@ -20,6 +21,9 @@ def main(WIDTH, HEIGHT):
     # Acceleration vector is initialized to 0
     # Rest is constant in the Boid class except for the width and height, which are given as an argument
     boids = [Boid(random.randrange(100, 800), random.randrange(10, 500)) for i in range(100)] 
+
+    # Initialize hoids with random positions
+    hoids = [Hoid(random.randrange(100, 800), random.randrange(10, 500)) for i in range(2)]
 
     # Main loop
     running = True
@@ -40,10 +44,14 @@ def main(WIDTH, HEIGHT):
             # Update boids position and velocity 
             # This calls the update function in the Boid class, which consists of the three rules
             # The rules control the movement of the boids 
-            boid.update(boids)
+            boid.update(boids, hoids)
 
             # Bound the boids to the screen so they don't fly off
             boid.bound_position(boids)
+        
+        for hoid in hoids:
+            hoid.draw(screen)
+            hoid.update(hoid.bound_position(hoids))
 
         # Update the screen
         pg.display.flip()
