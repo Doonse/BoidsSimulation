@@ -21,7 +21,12 @@ class Boid(Rules):
         w3 = 0.3 # Rule3: Try to match velocity with near boids
         w4 = -0.4 # Rule4: Tend to the palace
 
-        self.velocity = self.velocity + w1*Rules.fly_towards_center(self, boids) + w2*Rules.keep_distance_away(self, boids) + w3*Rules.match_velocity(self, boids) + w4*Rules.tend_to_place(self, boids, hoids)
+        r1 = Rules.fly_towards_center(self, boids)
+        r2 = Rules.keep_distance_away(self, boids)
+        r3 = Rules.match_velocity(self, boids)
+        r4 = Rules.tend_to_place(self, boids, hoids)
+
+        self.velocity = self.velocity + w1 * r1 + w2 * r2 + w3 * r3 
 
         # Limit the velocity of the boids to 6 and update the position
         self.velocity.scale_to_length(6)
