@@ -15,23 +15,13 @@ class Boid(Rules):
 
     # This is where the three rules are called, which move the boids
     def update(self, boids):
-        for boid in boids:
-            v1 = self.fly_towards_center(boid)
-            v2 = self.keep_distance_away(boid)
-            v3 = self.match_velocity(boid)
+        self.velocity = self.velocity + Rules.fly_towards_center(self, boids) + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
 
-            # Add the three rules to the velocity vector
-            self.velocity += v1 + v2 + v3
-
-            # Add the velocity vector to the position vector
+        # Limit the velocity of the boids to 6 and update the position
+        self.velocity.scale_to_length(6) 
         self.position += self.velocity
-
-
-        self.velocity.scale_to_length(5)
-
         
-
-
+        
     # This function makes sure the boids wrap around the screen when they reach the edge
     def edge_wrap(self, width, height):
         if self.position.x > width:
