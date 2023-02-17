@@ -11,7 +11,7 @@ class Rules:
     def fly_towards_center(self, boids):
 
         # Weight of the rule
-        weight = 0.3
+        weight = 0.5
         
         # Initialize center vector
         center = Vector(0, 0) 
@@ -36,7 +36,7 @@ class Rules:
     def keep_distance_away(self, boids):
 
         # Weight of the rule
-        weight = 0.2
+        weight = 0.3
 
         # Initialize distance vector
         distance = Vector(0, 0)
@@ -61,7 +61,7 @@ class Rules:
     def match_velocity(self, boids):
             
             # Weight of the rule
-            weight = 0.3
+            weight = 0.4
     
             # Initialize velocity vector
             velocity = self.velocity
