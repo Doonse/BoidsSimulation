@@ -20,7 +20,7 @@ def main(WIDTH, HEIGHT):
     # Random velociies are assigned in the Boid class as well
     # Acceleration vector is initialized to 0
     # Rest is constant in the Boid class except for the width and height, which are given as an argument
-    boids = [Boid(random.randrange(500, 800), random.randrange(0, 500)) for i in range(100)] 
+    boids = [Boid(random.randrange(100, 800), random.randrange(10, 500)) for i in range(100)] 
 
     # Main loop
     running = True
