@@ -20,19 +20,21 @@ class Boid(Rules):
         # Limit the velocity of the boids to 6 and update the position
         self.velocity.scale_to_length(6) 
         self.position += self.velocity
-        
-        
-    # This function makes sure the boids wrap around the screen when they reach the edge
-    def edge_wrap(self, width, height):
-        if self.position.x > width:
-            self.position.x = 0
-        elif self.position.x < 0:
-            self.position.x = width
-        if self.position.y > height:
-            self.position.y = 0
-        elif self.position.y < 0:
-            self.position.y = height
-        
+    
+    # Bounding the position of the boids to the screen so they don't fly off        
+    def bound_position(self, boids):
+        Xmin, Xmax, Ymin, Ymax = 0, 750, 0, 550
+        vec = Vector(0, 0)
 
-    
-    
+        for boid in boids:
+            if boid.position != self.position:
+                if self.position.x < Xmin:
+                    vec.x += 1
+                elif self.position.x > Xmax:
+                    vec.x -= 1
+                if self.position.y < Ymin:
+                    vec.y += 1
+                elif self.position.y > Ymax:
+                    vec.y -= 1
+                
+        return vec
