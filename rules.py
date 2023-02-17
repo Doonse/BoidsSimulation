@@ -8,7 +8,7 @@ class Rules:
     def __init__(self, x, y):
         self.position = Vector(x, y)
         self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1))
-
+        
 
     def find_center(self, boids):
             
@@ -25,7 +25,7 @@ class Rules:
                     center += boid.position
     
             # Return the center vector
-            return center / 100
+            return print(center / 100)
 
 
     # Implementing the first rule
@@ -50,16 +50,17 @@ class Rules:
 
 
     # Implementing second rule, which makes sure boids don't collide with each other
-    def keep_distance_away(self, boid):
+    def keep_distance_away(self, boids):
 
         # Initialize distance vector
         distance = Vector(0, 0)
+        for boid in boids:
 
-        # If the boid is not the boid we are calculating the rule for
-        if boid.position != self.position:
-            
-            # If the distance between the boid and the boid we are calculating the rule for is less than 100
-            if self.position.distance_to(boid.position) < 10:
+            # If the boid is not the boid we are calculating the rule for
+            if boid.position != self.position:
+                
+                # If the distance between the boid and the boid we are calculating the rule for is less than 100
+                if self.position.distance_to(boid.position) < 10:
 
                     # Add the distance vector to the distance vector
                     distance = distance - (self.position - boid.position)
@@ -69,14 +70,16 @@ class Rules:
     
 
     # Implementing the third rule, which adjusts the velocity of the boids to match the velocity of the boids around them
-    def match_velocity(self, boid):
+    def match_velocity(self, boids):
     
             # Initialize velocity vector
             velocity = self.velocity
 
-            # If the boid is not the boid we are calculating the rule for
-            if boid.position != self.position:
-                velocity += boid.velocity
+            for boid in boids:
+
+                # If the boid is not the boid we are calculating the rule for
+                if boid.position != self.position:
+                    velocity += boid.velocity
 
             # Divide the velocity vector by the number of boids minus one
             velocity = velocity / 100
@@ -107,3 +110,16 @@ class Rules:
 
         # Return the rule multiplied by weight of the rule
         return (center - self.position) / 100
+    
+
+# test
+if __name__ == "__main__":
+    rules = Rules(100, 300)
+
+    boids = []
+    for i in range(100):
+        boids.append(Rules(0, 0))
+
+    rules.find_center(boids)
+    
+
