@@ -14,23 +14,22 @@ class Boid(Rules):
         pg.draw.circle(screen, (255, 255, 255), self.position, 5)
 
     # This is where the three rules are called, which move the boids
-    def update(self, boids, hoids):
+    def update(self, boids):
         # Weights of the rules
-        w1 = 0.3 # Rule1: Move towards the center of mass of neighbours
-        w2 = 0.3 # Rule2: Keep a small distance away from other objects 
-        w3 = 0.3 # Rule3: Try to match velocity with near boids
-        w4 = -0.4 # Rule4: Tend to the palace
+        w1 = 10 # Rule1: Move towards the center of mass of neighbours
+        w2 = 10 # Rule2: Keep a small distance away from other objects 
+        w3 = 10 # Rule3: Try to match velocity with near boids
+        w4 = -1 # Rule4: Tend to the palace
 
-        r1 = Rules.fly_towards_center(self, boids)
-        r2 = Rules.keep_distance_away(self, boids)
-        r3 = Rules.match_velocity(self, boids)
-        r4 = Rules.tend_to_place(self, boids, hoids)
+        # Find the center of the boids before applying the rules 
 
-        self.velocity = self.velocity + w1 * r1 + w2 * r2 + w3 * r3 
+        c = Rules.find_center(self, boids)
+        r1 = self.fly_towards_center(boids, c) * w1
+        for boid in boids:
+            boid.velocity += r1 + self.keep_distance_away(boid) * w2 + self.match_velocity(boid) * w3 # + self.tend_to_place(boid) * w4
 
-        # Limit the velocity of the boids to 6 and update the position
-        self.velocity.scale_to_length(6)
-        self.position += self.velocity
+            boid.velocity.scale_to_length(1)
+            boid.position += boid.velocity / 10
 
     # Bounding the position of the boids to the screen so they don't fly off        
     def bound_position(self, boids):
@@ -49,6 +48,19 @@ class Boid(Rules):
                     vec.y -= 1
                 
         return vec
+    
+    def wrap_position(self, boids):
+        # wrap around the screen
+        if self.position.x > 800:
+            self.position.x = 0
+        elif self.position.x < 0:
+            self.position.x = 800
+        if self.position.y > 600:
+            self.position.y = 0
+        elif self.position.y < 0:
+            self.position.y = 600
+
+
 
 
     # Anti-flocking behaviour

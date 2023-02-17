@@ -20,10 +20,9 @@ def main(WIDTH, HEIGHT):
     # Random velociies are assigned in the Boid class as well
     # Acceleration vector is initialized to 0
     # Rest is constant in the Boid class except for the width and height, which are given as an argument
-    boids = [Boid(random.randrange(100, 800), random.randrange(10, 500)) for i in range(100)] 
-
+    boids = [Boid(random.randrange(500, 600), random.randrange(500, 600)) for i in range(100)] 
     # Initialize hoids with random positions
-    hoids = [Hoid(random.randrange(100, 800), random.randrange(10, 500)) for i in range(2)]
+    hoids = [Hoid(random.randrange(500, 600), random.randrange(500, 600)) for i in range(2)]
 
     # Main loop
     running = True
@@ -44,10 +43,10 @@ def main(WIDTH, HEIGHT):
             # Update boids position and velocity 
             # This calls the update function in the Boid class, which consists of the three rules
             # The rules control the movement of the boids 
-            boid.update(boids, hoids)
+            boid.update(boids)
 
             # Bound the boids to the screen so they don't fly off
-            boid.bound_position(boids)
+            boid.wrap_position(boids)
         
         for hoid in hoids:
             hoid.draw(screen)
