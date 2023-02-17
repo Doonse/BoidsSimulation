@@ -14,13 +14,14 @@ class Boid(Rules):
         pg.draw.circle(screen, (255, 255, 255), self.position, 5)
 
     # This is where the three rules are called, which move the boids
-    def update(self, boids):
+    def update(self, boids, hoids):
         # Weights of the rules
-        w1 = 0.5 # Rule1: Move towards the center of mass of neighbours
+        w1 = 0.3 # Rule1: Move towards the center of mass of neighbours
         w2 = 0.3 # Rule2: Keep a small distance away from other objects 
         w3 = 0.3 # Rule3: Try to match velocity with near boids
+        w4 = -0.4 # Rule4: Tend to the palace
 
-        self.velocity = self.velocity + w1*Rules.fly_towards_center(self, boids) + Rules.keep_distance_away(self, boids) + Rules.match_velocity(self, boids)
+        self.velocity = self.velocity + w1*Rules.fly_towards_center(self, boids) + w2*Rules.keep_distance_away(self, boids) + w3*Rules.match_velocity(self, boids) + w4*Rules.tend_to_place(self, boids, hoids)
 
         # Limit the velocity of the boids to 6 and update the position
         self.velocity.scale_to_length(6)
@@ -45,9 +46,8 @@ class Boid(Rules):
         return vec
 
 
-
-
     # Anti-flocking behaviour
     # Negate the first rule (moving towards the centre of mass of neighbours)
     def anti_flock(self, boids):
         pass
+
