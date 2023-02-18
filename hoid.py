@@ -1,7 +1,7 @@
 import random
 from pygame import Vector2 as Vector
 import pygame as pg
-from boid_test import Boid
+from boid import Boid
 
 class Hoid:
     def __init__(self, x, y):
