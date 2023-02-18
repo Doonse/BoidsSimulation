@@ -25,7 +25,7 @@ class Boid:
         for boid in boids:
             if boid.position != self.position:
                 center += boid.position
-            return(center - self.position) / 100
+            return (center - self.position) / 100
         return Vector2(0, 0)
     
     def keep_distance_away(self, boids):
@@ -47,13 +47,13 @@ class Boid:
         return Vector2(0, 0)
 
     def tend_to_place(self, boids):
-        perceived_center = Vector2(0, 0)
-
+        center = Vector2(0, 0)
         for boid in boids:
-            if boid.position != self.position: 
-                perceived_center += boid.position
-        perceived_center = perceived_center / 100 
-        return (perceived_center - self.position) / 1000
+            if boid.position != self.position:
+                center += boid.position
+            return (center - self.position) / 100
+        return Vector2(0, 0)
+
 
     def wrap_position(self, screen_width, screen_height):
         if self.position.x > screen_width:
@@ -68,20 +68,20 @@ class Boid:
     # This is where the three rules are called, which move the boids
     def update(self, boids, screen_width, screen_height):
         # Weights of the rules
-        w1 = 0.3 # Rule1: Move towards the center of mass of neighbours
-        w2 = 0.2 # Rule2: Keep a small distance away from other objects 
-        w3 = 0.4 # Rule3: Try to match velocity with near boids
-        w4 = 0 # Rule4: Tend to the palace
+        w1 = 0.2 # Rule1: Move towards the center of mass of neighbours
+        w2 = 0.3 # Rule2: Keep a small distance away from other objects 
+        w3 = 0.5 # Rule3: Try to match velocity with near boids
+        w4 = -0.4 # Rule4: Dodge the hoiks
 
-        # Find the center of the boids before applying the rules 
         n = self.neighbors(boids)
         cohesian = w1 * self.fly_towards_center(n)
         separation = w2 * self.keep_distance_away(n)
         alignment = w3 * self.match_velocity(n)
+        dodge = w4 * self.tend_to_place(n)
 
-        # self.velocity = self.velocity + cohesian + separation + alignment 
-        self.velocity += cohesian + separation + alignment
+        self.velocity += cohesian + separation + alignment #+ dodge
 
         self.velocity.scale_to_length(5)
         self.position += self.velocity
+        
         self.wrap_position(screen_width, screen_height)
