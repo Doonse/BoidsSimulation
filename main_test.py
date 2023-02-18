@@ -14,8 +14,8 @@ def main(WIDTH, HEIGHT):
     pg.display.set_caption("Boids")
     clock = pg.time.Clock()
 
-    boids = [Boid(random.randrange(500, 600), random.randrange(500, 600)) for i in range(100)]
-    hoids = [Hoid(random.randrange(500, 600), random.randrange(500, 600)) for i in range(2)]
+    boids = [Boid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(100)]
+    hoids = [Hoid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(2)]
 
 
     running = True
@@ -26,12 +26,12 @@ def main(WIDTH, HEIGHT):
                 running = False
         screen.fill((0, 0, 0))
 
-        # Boid loop
+        # Boid loop 
         for boid in boids: 
 
             
             boid.draw(screen)
-            boid.update(boids)
+            boid.update(boids, WIDTH, HEIGHT)
             
         # Hoid loop         
         for hoid in hoids:
