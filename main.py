@@ -29,12 +29,13 @@ def main(WIDTH, HEIGHT):
         for boid in boids: 
             boid.draw(screen)
             boid.update(boids, WIDTH, HEIGHT)
+
             
         # Hoid loop         
         for hoik in hoiks:
             hoik.draw(screen)
             hoik.update(hoik.bound_position(hoiks))
-
+            hoik.chase(boids)
 
 
         # Update the screen
