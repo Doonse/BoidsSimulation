@@ -26,9 +26,9 @@ def main(WIDTH, HEIGHT):
                 running = False
         screen.fill((0, 0, 0))
 
-
         # Boid loop
-        for boid in boids:
+        for boid in boids: 
+
             
             boid.draw(screen)
             boid.update(boids)
