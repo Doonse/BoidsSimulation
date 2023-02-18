@@ -1,7 +1,6 @@
 import pygame as pg
 from pygame import Vector2
 import random
-from rules import Rules
 
 class Boid:
     def __init__(self, screen_width, screen_height):
