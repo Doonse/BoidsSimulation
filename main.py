@@ -1,8 +1,7 @@
 import pygame as pg
-import random 
-import numpy as np
-from boid_test import Boid # Import the Boid class from boid_test.py, its testing
-from hoid import Hoid
+import random
+from boid import Boid # Import the Boid class from boid_test.py, its testing
+from hoik import Hoid
 
 WIDTH = 1200
 HEIGHT = 900
@@ -15,7 +14,7 @@ def main(WIDTH, HEIGHT):
     clock = pg.time.Clock()
 
     boids = [Boid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(100)]
-    hoids = [Hoid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(2)]
+    hoiks = [Hoid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(2)]
 
 
     running = True
@@ -28,15 +27,13 @@ def main(WIDTH, HEIGHT):
 
         # Boid loop 
         for boid in boids: 
-
-            
             boid.draw(screen)
             boid.update(boids, WIDTH, HEIGHT)
             
         # Hoid loop         
-        for hoid in hoids:
-            hoid.draw(screen)
-            hoid.update(hoid.bound_position(hoids))
+        for hoik in hoiks:
+            hoik.draw(screen)
+            hoik.update(hoik.bound_position(hoiks))
 
 
 

@@ -1,12 +1,13 @@
 import random
 from pygame import Vector2 as Vector
 import pygame as pg
-from boid_test import Boid
+from boid import Boid
 
-class Hoid:
+class Hoid(Boid):
     def __init__(self, x, y):
-        self.position = Vector(x, y)
+        super().__init__(x, y)
         self.velocity = Vector(random.uniform(-1, 1), random.uniform(-1, 1))
+        self.radius = 100
 
     # Draw the hoids on the screen
     def draw(self, screen):
@@ -18,6 +19,20 @@ class Hoid:
         # Limit the velocity of the hoids to 5 and update the position
         self.velocity.scale_to_length(6)
         self.position += self.velocity
+    
+    def chase(self, array):
+        targets = Boid.neighbors(self, array) # List output
+
+        pot_targets = []
+        for b in array:
+            pot_targets.append(self.position.distance_to(targets[b].position))
+        return min(pot_targets)
+
+
+
+
+
+
 
     # Bounding the position of the hoids to the screen so they don't fly off        
     def bound_position(self, hoids):
@@ -36,3 +51,6 @@ class Hoid:
                     vec.y -= 1
                 
         return vec
+
+    def chase(self, boids):
+        pass
