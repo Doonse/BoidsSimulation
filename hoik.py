@@ -20,15 +20,12 @@ class Hoid(Boid):
         self.velocity.scale_to_length(6)
         self.position += self.velocity
     
-    def chase(self, array):
-        targets = Boid.neighbors(self, array) # List output
-
-        pot_targets = []
-        for b in array:
-            pot_targets.append(self.position.distance_to(targets[b].position))
-        return min(pot_targets)
-
-
+    def chase(self, boids):
+        for boid in boids:
+            if boid.position != self.position:
+                if self.position.distance_to(boid.position) < self.radius:
+                    self.position = boid.position
+                    
 
 
 
