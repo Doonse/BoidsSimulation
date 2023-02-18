@@ -6,7 +6,7 @@ class Boid:
     def __init__(self, screen_width, screen_height):
         self.position = Vector2(random.uniform(0, screen_width), random.uniform(0, screen_height))
         self.velocity = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
-        self.radius = 70
+        self.radius = 100
 
     # Draw the boids on the screen
     def draw(self, screen):
