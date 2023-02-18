@@ -25,9 +25,7 @@ class Boid:
         for boid in boids:
             if boid.position != self.position:
                 center += boid.position
-        if len(boids) > 1:
-            center = center / (len(boids) - 1)
-            return (center - self.position) / 100
+            return(center - self.position) / 100
         return Vector2(0, 0)
     
     def keep_distance_away(self, boids):
@@ -81,7 +79,8 @@ class Boid:
         separation = w2 * self.keep_distance_away(n)
         alignment = w3 * self.match_velocity(n)
 
-        self.velocity = self.velocity + cohesian + separation + alignment 
+        # self.velocity = self.velocity + cohesian + separation + alignment 
+        self.velocity += cohesian + separation + alignment
 
         self.velocity.scale_to_length(5)
         self.position += self.velocity
