@@ -19,7 +19,6 @@ def main(WIDTH, HEIGHT):
 
     running = True
     while running:
-        
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
@@ -29,12 +28,12 @@ def main(WIDTH, HEIGHT):
         for boid in boids: 
             boid.draw(screen)
             boid.update(boids, WIDTH, HEIGHT)
+
             
-        # Hoid loop         
+        """ # Hoid loop         
         for hoik in hoiks:
             hoik.draw(screen)
-            hoik.update(hoik.bound_position(hoiks))
-
+            hoik.update(boids) """
 
 
         # Update the screen
