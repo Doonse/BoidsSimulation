@@ -32,7 +32,7 @@ class Boid:
         distance = Vector2()
         for boid in boids:
             if boid.position != self.position:
-                if (boid.position - self.position).length() < 10:
+                if (boid.position - self.position).length() < 9:
                     distance = distance - (boid.position - self.position)
         return distance
     
