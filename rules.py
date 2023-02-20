@@ -8,9 +8,10 @@ class Rules:
 
 
     ################
-    # Boid rules
+    ### Boid rules
     ################
 
+    # Find the neighbors of a boid in range
     def neighbors(self, boids):
         neighbors = []
         for boid in boids:
@@ -19,6 +20,7 @@ class Rules:
                     neighbors.append(boid)
         return neighbors
 
+    # Cohesion, boids try to fly towards the center of mass of neighboring boids
     def fly_towards_center(self, boids):
         center = Vector2(0, 0)
         for boid in boids:
@@ -27,6 +29,7 @@ class Rules:
             return (center - self.position) / 100
         return Vector2(0, 0)
     
+    # Separation, boids try to keep a small distance away from eachother
     def keep_distance_away(self, boids, range=9):
         distance = Vector2()
         for boid in boids:
@@ -35,6 +38,7 @@ class Rules:
                     distance = distance - (boid.position - self.position)
         return distance
     
+    # Alignment, boids try to match velocity with nearby boids
     def match_velocity(self, boids):
         velocity = Vector2(0, 0)
         for boid in boids:
@@ -45,7 +49,7 @@ class Rules:
             return (velocity - self.velocity) / 8
         return Vector2(0, 0)
 
-
+    # Avoid the hoiks
     def tend_to_place(self, hoiks):
         run = Vector2(0, 0)
         for hoik in hoiks:
@@ -56,9 +60,10 @@ class Rules:
 
 
     ################
-    # Hoik rules
+    ### Hoik rules
     ################
 
+    # Separation, hoiks try to keep distance away from eachother
     def my_food(self, hoiks):
         distance = Vector2()
         for hoik in hoiks:
@@ -67,6 +72,7 @@ class Rules:
                     distance = distance - (hoik.position - self.position)
         return distance
 
+    # Chase the boids in range
     def chase(self, boids):
         closest_boid = None
         for boid in boids:
@@ -81,7 +87,7 @@ class Rules:
 
 
     ################
-    # Screen wrap
+    ### Screen wrap
     ################
 
     def wrap_position(self):

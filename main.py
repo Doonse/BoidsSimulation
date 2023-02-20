@@ -1,6 +1,8 @@
 import pygame as pg
+
 from boid import Boid # Import the Boid class from boid_test.py, its testing
 from hoik import Hoik
+
 
 WIDTH = 1200
 HEIGHT = 900
