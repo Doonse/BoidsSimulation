@@ -1,6 +1,12 @@
+# Pygame
 import pygame as pg
 from pygame import Vector2
+from pygame import sprite as sp
+
+# Random number generator
 import random
+
+# Rules class
 from rules import Rules
 
 class Boid(Rules):
@@ -43,4 +49,4 @@ class Boid(Rules):
         self.position += self.velocity
         
         # Wrap the position of the boids
-        Rules.wrap_position(self)
+        Rules.bound_position(self)
