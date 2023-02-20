@@ -17,9 +17,15 @@ class Hoik(Rules):
     # Update the position of the hoiks
     def update(self, boids, hoiks):
 
-        chase = Rules.chase(self, boids)
-        efficiency = Rules.keep_distance_away(self, hoiks, 50) 
-        align = Rules.match_velocity(self, boids)
+        # Weights of the rules
+        w1 = 0.6 # Chase the closest boid
+        w2 = 0.3 # Keep distance away from other hoiks to avoid collisions or chasing same boid. Dont converge to same point
+        w3 = 0.6 # Match velocity
+
+        # Rules 
+        chase = w1 * Rules.chase(self, boids)
+        efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) 
+        align = w3 * Rules.match_velocity(self, boids)
 
         self.velocity += chase + efficiency + align
 
