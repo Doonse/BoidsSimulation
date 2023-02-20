@@ -10,11 +10,11 @@ class Hoik(Rules):
         self.velocity = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
         self.radius = 100
 
-    # Draw the hoids on the screen
+    # Draw the hoiks on the screen
     def draw(self, screen):
         pg.draw.circle(screen, (255, 0, 0), self.position, 5)
     
-
+    # Update the position of the hoiks
     def update(self, boids, hoiks):
 
         chase = Rules.chase(self, boids)
