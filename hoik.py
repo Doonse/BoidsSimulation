@@ -10,29 +10,38 @@ class Hoik(Rules):
         self.velocity = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
         self.radius = 100
 
-    # Draw the hoiks on the screen
+    ### Draw the hoiks on the screen
     def draw(self, screen):
         pg.draw.circle(screen, (255, 0, 0), self.position, 5)
     
-    # Update the position of the hoiks
+    ### Update the position of the hoiks
     def update(self, boids, hoiks):
 
-        # Weights of the rules
-        w1 = 0.6 # Chase the closest boid
-        w2 = 0.3 # Keep distance away from other hoiks to avoid collisions or chasing same boid. Dont converge to same point
-        w3 = 0.6 # Match velocity
+        ### Weights of the rules. Attemt to make it more realistic
+        w1 = 0.7 # Weight for chasing the closest boid
+        w2 = 0.7 # Keep distance away from other hoiks 
+        w3 = 0.5 # Match velocity
 
-        # Rules 
-        chase = w1 * Rules.chase(self, boids)
+        ### Rules hoiks follow
+        # Chase the closest boid
+        chase = w1 * Rules.chase(self, boids) 
+
+        # Keep distance away from other hoiks. Avoid collision and converging on each other
         efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) 
+
+        # Match velocity 
         align = w3 * Rules.match_velocity(self, boids)
 
+        # Update velocity
         self.velocity += chase + efficiency + align
 
+        # Limit the speed of the hoiks 
         self.velocity.scale_to_length(5)
 
+        # Update position
         self.position += self.velocity
 
+        # Wrap the position of the hoiks
         Rules.wrap_position(self)
     
 
