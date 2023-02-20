@@ -7,9 +7,9 @@ class Rules:
 
 
 
-    ################
+    ###############
     ### Boid rules
-    ################
+    ###############
 
     # Find the neighbors of a boid in range
     def neighbors(self, boids):
@@ -59,9 +59,9 @@ class Rules:
 
 
 
-    ################
+    ###############
     ### Hoik rules
-    ################
+    ###############
 
     # Separation, hoiks try to keep distance away from eachother
     def my_food(self, hoiks):
@@ -86,11 +86,12 @@ class Rules:
 
 
 
-    ################
-    ### Screen wrap
-    ################
+    #########################
+    ### Screen wrap or bound
+    #########################
 
-    def wrap_position(self):
+    # Wrap the boids around the screen when they go off screen
+    def wrap_position(self): 
         if self.position.x > self.screen_width:
             self.position.x = 0
         if self.position.x < 0:
@@ -99,3 +100,15 @@ class Rules:
             self.position.y = 0
         if self.position.y < 0:
             self.position.y = self.screen_height
+
+    # Bound the boids to the screen. Change the velocity when they reach margin
+    def bound_position(self, margin=100):
+        if self.position.x > self.screen_width - margin:
+            self.velocity += Vector2(-0.7, 0)
+        if self.position.x < margin:
+            self.velocity += Vector2(0.7, 0)
+        if self.position.y > self.screen_height - margin:
+            self.velocity += Vector2(0, -0.7)
+        if self.position.y < margin:
+            self.velocity += Vector2(0, 0.7)
+

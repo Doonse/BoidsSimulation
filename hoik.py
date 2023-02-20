@@ -19,8 +19,8 @@ class Hoik(Rules):
 
         ### Weights of the rules. Attemt to make it more realistic
         w1 = 0.7 # Weight for chasing the closest boid
-        w2 = 0.7 # Keep distance away from other hoiks 
-        w3 = 0.5 # Match velocity
+        w2 = 0.5 # Keep distance away from other hoiks 
+        w3 = 0.4 # Match velocity
 
         ### Rules hoiks follow
         # Chase the closest boid
@@ -42,7 +42,7 @@ class Hoik(Rules):
         self.position += self.velocity
 
         # Wrap the position of the hoiks
-        Rules.wrap_position(self)
+        Rules.bound_position(self)
     
 
 
