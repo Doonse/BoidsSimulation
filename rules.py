@@ -6,6 +6,7 @@ class Rules:
         self.screen_height = screen_height
 
 
+
     ###############
     ### Boid rules
     ###############
@@ -89,7 +90,7 @@ class Rules:
     ### Screen wrap or bound
     #########################
 
-    # 
+    # Wrap the boids around the screen when they go off screen
     def wrap_position(self): 
         if self.position.x > self.screen_width:
             self.position.x = 0
@@ -100,6 +101,7 @@ class Rules:
         if self.position.y < 0:
             self.position.y = self.screen_height
 
+    # Bound the boids to the screen. Change the velocity when they reach margin
     def bound_position(self, margin=100):
         if self.position.x > self.screen_width - margin:
             self.velocity += Vector2(-0.7, 0)
