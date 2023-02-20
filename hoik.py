@@ -48,6 +48,10 @@ class Hoik():
 
     def update(self, boids, hoiks):
 
+
+        # Remember to add align function here to make it more realistic 
+        # align = Rules.align(self, array)
+
         chase = self.chase(boids)
         efficiency = self.my_food(hoiks)
 
