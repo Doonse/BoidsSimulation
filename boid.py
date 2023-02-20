@@ -46,13 +46,15 @@ class Boid:
             return (velocity - self.velocity) / 8
         return Vector2(0, 0)
 
-    def tend_to_place(self, boids):
-        center = Vector2(0, 0)
-        for boid in boids:
-            if boid.position != self.position:
-                center += boid.position
-            return (center - self.position) / 100
-        return Vector2(0, 0)
+
+    def tend_to_place(self, hoiks):
+        run = Vector2(0, 0)
+        for hoik in hoiks:
+            if (hoik.position - self.position).length() < self.radius:
+                run =  - (hoik.position - self.position).normalize()
+        return run
+
+
 
 
     def wrap_position(self, screen_width, screen_height):
@@ -66,22 +68,31 @@ class Boid:
             self.position.y = screen_height
 
     # This is where the three rules are called, which move the boids
-    def update(self, boids, screen_width, screen_height):
+    def update(self, boids, screen_width, screen_height, hoiks):
         # Weights of the rules
         w1 = 0.2 # Rule1: Move towards the center of mass of neighbours
         w2 = 0.3 # Rule2: Keep a small distance away from other objects 
         w3 = 0.5 # Rule3: Try to match velocity with near boids
-        w4 = -0.4 # Rule4: Dodge the hoiks
 
+        # Neighbors in range
         n = self.neighbors(boids)
+
+        # Rules to follow
         cohesian = w1 * self.fly_towards_center(n)
         separation = w2 * self.keep_distance_away(n)
         alignment = w3 * self.match_velocity(n)
-        dodge = w4 * self.tend_to_place(n)
 
-        self.velocity += cohesian + separation + alignment #+ dodge
+        # Hoiks in range
+        run = self.tend_to_place(hoiks) 
 
+        # Update velocity 
+        self.velocity += cohesian + separation + alignment + run
+
+        # Limit the speed of the boids
         self.velocity.scale_to_length(5)
+
+        # Update position
         self.position += self.velocity
         
+        # Wrap the position of the boids
         self.wrap_position(screen_width, screen_height)
