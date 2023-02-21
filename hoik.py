@@ -14,8 +14,8 @@ class Hoik(Rules):
         super().__init__(screen_width, screen_height)
         self.position = Vector2(random.randrange(0, screen_width), random.randrange(0, screen_height))
         self.velocity = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
-        self.radius = 100
-        self.size = 5
+        self.radius = 100 # Radius of the hoiks vision
+        self.size = 5 # Size of the hoiks
 
     ### Draw the hoiks on the screen
     def draw(self, screen):
@@ -31,10 +31,26 @@ class Hoik(Rules):
 
     # Lose size when not eating boids for a while 
     def shrink(self):
-        self.size -= 0.1 # Lose size continuously
+        self.size -= 0.01 # Lose size continuously
         if self.size < 5: # Min size
             self.size = 5 
 
+    def reproduce(self, hoiks):
+        if len(hoiks) < 10:
+            if self.size > 10:
+                if random.random() < 0.1:
+                    # Reproduce a new hoik next to the parent without overlapping and crashin the game
+                    hoiks.append(Hoik(self.screen_width, self.screen_height))
+                    hoiks[-1].position = self.position + Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
+
+    def die(self, hoiks):
+        if len(hoiks) > 2:
+            if self.size < 6:
+                if random.random() < 0.01:
+                    hoiks.remove(self)
+
+
+    
 
     
     ### Update the position of the hoiks
@@ -53,6 +69,8 @@ class Hoik(Rules):
         # Update size
         self.grow(boids)
         self.shrink()
+        self.reproduce(hoiks)
+        self.die(hoiks)
 
         # Update velocity
         self.velocity += chase + efficiency + align
