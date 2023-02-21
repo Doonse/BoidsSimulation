@@ -30,7 +30,7 @@ def main(WIDTH, HEIGHT):
         # Boid loop 
         for boid in boids: 
             boid.draw(screen)
-            boid.update(boids, hoiks)
+            boid.update(boids, hoiks, obstacles)
 
         # Hoik loop         
         for hoik in hoiks:
@@ -39,7 +39,6 @@ def main(WIDTH, HEIGHT):
 
         for obstacle in obstacles:
             obstacle.draw(screen)
-            obstacle.update()
 
         
 
