@@ -5,7 +5,7 @@ import random
 
 
 class Obstacle:
-    def __init__(self, screen_width, screen_height, margin=200):
+    def __init__(self, screen_width, screen_height, margin=100):
         self.position = Vector2(random.randrange(margin, screen_width - margin), random.randrange(margin, screen_height - margin))
         self.radius = 15
 
