@@ -1,3 +1,8 @@
+# os
+import os
+
+# math
+import math
 
 # Pygame
 import pygame as pg
@@ -20,7 +25,7 @@ class Boid(Rules):
 
     # Draw the boid
     def draw(self, screen):
-        pg.draw.circle(screen, (255, 255, 255), self.position, 5)
+        pg.draw.circle(screen, (80, 150, 100), (int(self.position.x), int(self.position.y)), 4)
 
     ### Update the position of the boid
     def update(self, boids, hoiks, obstacles=[]):
