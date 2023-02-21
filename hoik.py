@@ -48,7 +48,7 @@ class Hoik(Rules):
         # Die if there are too many hoiks
         if len(hoiks) > 2:
             if self.size < 6:
-                if random.random() < 0.001:
+                if random.random() < 0.0005:
                     hoiks.remove(self)
             # Randomly die, maybe heart attack or something
             if random.random() < 0.0001:
