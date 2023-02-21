@@ -9,6 +9,7 @@ import random
 from rules import Rules
 
 
+
 class Hoik(Rules):
     def __init__(self, screen_width, screen_height):
         super().__init__(screen_width, screen_height)
@@ -38,20 +39,22 @@ class Hoik(Rules):
     def reproduce(self, hoiks):
         if len(hoiks) < 10:
             if self.size > 10:
-                if random.random() < 0.1:
+                if random.random() < 0.01:
                     # Reproduce a new hoik next to the parent without overlapping and crashin the game
                     hoiks.append(Hoik(self.screen_width, self.screen_height))
                     hoiks[-1].position = self.position + Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
 
     def die(self, hoiks):
+        # Die if there are too many hoiks
         if len(hoiks) > 2:
             if self.size < 6:
-                if random.random() < 0.01:
+                if random.random() < 0.001:
                     hoiks.remove(self)
-
+            # Randomly die, maybe heart attack or something
+            if random.random() < 0.0001:
+                hoiks.remove(self)
 
     
-
     
     ### Update the position of the hoiks
     def update(self, boids, hoiks):
@@ -66,7 +69,7 @@ class Hoik(Rules):
         efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) # Keep distance away from other hoiks. Avoid collision and converging on each other
         align = w3 * Rules.match_velocity(self, boids) # Match velocity 
 
-        # Update size
+        # Size, reproduction and death
         self.grow(boids)
         self.shrink()
         self.reproduce(hoiks)

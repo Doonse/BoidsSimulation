@@ -1,6 +1,8 @@
+# Pygame
 import pygame
 from pygame import Vector2
 
+# Random
 import random
 
 

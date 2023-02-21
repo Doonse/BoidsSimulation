@@ -1,5 +1,7 @@
+# Pygame
 import pygame as pg
 
+# Classes
 from boid import Boid
 from hoik import Hoik
 from obstacle import Obstacle
