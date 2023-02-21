@@ -26,8 +26,8 @@ class Boid(Rules):
         
         ### Weights of the rules
         w1 = 0.2 # Rule1: Move towards the center of mass of neighbours
-        w2 = 0.3 # Rule2: Keep a small distance away from other objects 
-        w3 = 0.4 # Rule3: Try to match velocity with near boids
+        w2 = 0.4 # Rule2: Keep a small distance away from other objects 
+        w3 = 0.3 # Rule3: Try to match velocity with near boids
 
         ### Neighbors in range
         n = Rules.neighbors(self, boids)
@@ -35,13 +35,13 @@ class Boid(Rules):
         ### Rules to follow
         cohesian = w1 * Rules.fly_towards_center(self, n)
         separation_from_boids = w2 * Rules.keep_distance_away(self, n, 9)
-        separation_from_hoiks = w2 * Rules.keep_distance_away(self, hoiks, self.radius)
-        separation_from_obs = w2 * Rules.keep_distance_away(self, obstacles, 50)
+        dodge_hoiks = w2 * Rules.keep_distance_away(self, hoiks, self.radius)
+        dodge_obs = w2 * Rules.keep_distance_away(self, obstacles, 50)
         alignment = w3 * Rules.match_velocity(self, n)
 
 
         # Update velocity 
-        self.velocity += cohesian + separation_from_boids + separation_from_hoiks + separation_from_obs + alignment
+        self.velocity += cohesian + separation_from_boids + dodge_hoiks + dodge_obs + alignment
 
         # Limit the speed of the boids
         self.velocity.scale_to_length(5)
