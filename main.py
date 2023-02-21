@@ -16,9 +16,10 @@ def main(WIDTH, HEIGHT):
     pg.display.set_caption("Boids")
     clock = pg.time.Clock()
 
+    # Create boids, hoiks and obstacles
     boids = [Boid(WIDTH, HEIGHT) for i in range(100)]
     hoiks = [Hoik(WIDTH, HEIGHT) for i in range(2)]
-    obstacles = [Obstacle(WIDTH, HEIGHT) for i in range(5)]
+    obstacles = [Obstacle(WIDTH, HEIGHT) for i in range(3)]
 
     running = True
     while running:
@@ -37,6 +38,7 @@ def main(WIDTH, HEIGHT):
             hoik.draw(screen)
             hoik.update(boids, hoiks)
 
+        # Obstacle loop
         for obstacle in obstacles:
             obstacle.draw(screen)
 
