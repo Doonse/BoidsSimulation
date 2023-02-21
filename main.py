@@ -1,8 +1,17 @@
 import pygame as pg
+<<<<<<< HEAD
 import random 
 import numpy as np
 from boid import Boid # Import the Boid class from boid_test.py, its testing
 from hoid import Hoid
+=======
+
+from boid import Boid
+from hoik import Hoik
+from obstacle import Obstacle
+
+
+>>>>>>> b1a01d62027e570bffe284fe39d96d76d2c67ead
 
 WIDTH = 1200
 HEIGHT = 900
@@ -14,13 +23,13 @@ def main(WIDTH, HEIGHT):
     pg.display.set_caption("Boids")
     clock = pg.time.Clock()
 
-    boids = [Boid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(100)]
-    hoids = [Hoid(random.randrange(0, WIDTH), random.randrange(0, HEIGHT)) for i in range(2)]
-
+    # Create boids, hoiks and obstacles
+    boids = [Boid(WIDTH, HEIGHT) for i in range(100)]
+    hoiks = [Hoik(WIDTH, HEIGHT) for i in range(2)]
+    obstacles = [Obstacle(WIDTH, HEIGHT) for i in range(3)]
 
     running = True
     while running:
-        
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
@@ -28,17 +37,19 @@ def main(WIDTH, HEIGHT):
 
         # Boid loop 
         for boid in boids: 
-
-            
             boid.draw(screen)
-            boid.update(boids, WIDTH, HEIGHT)
-            
-        # Hoid loop         
-        for hoid in hoids:
-            hoid.draw(screen)
-            hoid.update(hoid.bound_position(hoids))
+            boid.update(boids, hoiks, obstacles)
 
+        # Hoik loop         
+        for hoik in hoiks:
+            hoik.draw(screen)
+            hoik.update(boids, hoiks)
 
+        # Obstacle loop
+        for obstacle in obstacles:
+            obstacle.draw(screen)
+
+        
 
         # Update the screen
         pg.display.flip()
