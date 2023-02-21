@@ -1,17 +1,10 @@
 import pygame as pg
-<<<<<<< HEAD
-import random 
-import numpy as np
-from boid import Boid # Import the Boid class from boid_test.py, its testing
-from hoid import Hoid
-=======
 
 from boid import Boid
 from hoik import Hoik
 from obstacle import Obstacle
 
 
->>>>>>> b1a01d62027e570bffe284fe39d96d76d2c67ead
 
 WIDTH = 1200
 HEIGHT = 900
