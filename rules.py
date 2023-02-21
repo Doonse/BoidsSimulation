@@ -29,7 +29,7 @@ class Rules:
             return (center - self.position) / 100
         return Vector2(0, 0)
     
-    # Separation, boids try to keep a small distance away from eachother
+    # Separation, boids try to keep a small distance away from other objects (boids, obstacles)
     def keep_distance_away(self, boids, range=9):
         distance = Vector2()
         for boid in boids:
