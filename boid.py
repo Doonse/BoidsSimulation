@@ -1,9 +1,3 @@
-# os
-import os
-
-# math
-import math
-
 # Pygame
 import pygame as pg
 from pygame import Vector2
