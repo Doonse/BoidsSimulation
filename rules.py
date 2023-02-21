@@ -49,6 +49,16 @@ class Rules:
             return (velocity - self.velocity) / 8
         return Vector2(0, 0)
 
+    # Avoid the hoiks
+    def tend_to_place(self, hoiks):
+        run = Vector2(0, 0)
+        for hoik in hoiks:
+            if (hoik.position - self.position).length() < self.radius:
+                run =  - (hoik.position - self.position).normalize()
+        return run
+
+
+
     ###############
     ### Hoik rules
     ###############
