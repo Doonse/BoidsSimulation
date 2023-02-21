@@ -20,7 +20,7 @@ class Hoik(Rules):
 
     ### Draw the hoiks on the screen
     def draw(self, screen):
-        pg.draw.circle(screen, (255, 0, 0), self.position, self.size)
+        pg.draw.circle(screen, (255, 0, 100), self.position, self.size)
 
     # Gain size when eating boids
     def grow(self, boids):
