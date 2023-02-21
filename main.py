@@ -8,8 +8,8 @@ from obstacle import Obstacle
 
 
 
-WIDTH = 1200
-HEIGHT = 900
+WIDTH = 1400
+HEIGHT = 1000
 
 def main(WIDTH, HEIGHT):
     pg.init()
