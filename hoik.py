@@ -8,16 +8,27 @@ import random
 # Rules class
 from rules import Rules
 
+
 class Hoik(Rules):
     def __init__(self, screen_width, screen_height):
         super().__init__(screen_width, screen_height)
         self.position = Vector2(random.randrange(0, screen_width), random.randrange(0, screen_height))
         self.velocity = Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
         self.radius = 100
+        self.size = 5
 
     ### Draw the hoiks on the screen
     def draw(self, screen):
-        pg.draw.circle(screen, (255, 0, 0), self.position, 5)
+        pg.draw.circle(screen, (255, 0, 0), self.position, self.size)
+
+    # Gain size when eating boids
+    def grow(self, boids):
+        for boid in boids:
+            if boid.position != self.position:
+                if (boid.position - self.position).length() < self.size + 2: # + 2 for extra reach
+                    self.size += 1 # Gain size
+                if self.size > 20:
+                    self.size = 20 # Max size
     
     ### Update the position of the hoiks
     def update(self, boids, hoiks):
@@ -28,20 +39,21 @@ class Hoik(Rules):
         w3 = 0.4 # Match velocity
 
         ### Rules hoiks follow
-        # Chase the closest boid
-        chase = w1 * Rules.chase(self, boids) 
+        chase = w1 * Rules.chase(self, boids) # Chase the closest boid
+        efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) # Keep distance away from other hoiks. Avoid collision and converging on each other
+        align = w3 * Rules.match_velocity(self, boids) # Match velocity 
 
-        # Keep distance away from other hoiks. Avoid collision and converging on each other
-        efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) 
-
-        # Match velocity 
-        align = w3 * Rules.match_velocity(self, boids)
+        # Update size
+        Rules.grow(self, boids)
 
         # Update velocity
         self.velocity += chase + efficiency + align
 
         # Limit the speed of the hoiks 
-        self.velocity.scale_to_length(5)
+        if self.size > 10:
+            self.velocity.scale_to_length(2)
+        else:
+            self.velocity.scale_to_length(7)
 
         # Update position
         self.position += self.velocity
