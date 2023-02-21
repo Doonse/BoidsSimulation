@@ -1,4 +1,9 @@
+# Pygame
 from pygame import Vector2
+
+# Random
+import random
+
 
 class Rules:
     def __init__(self, screen_width, screen_height):
@@ -48,6 +53,19 @@ class Rules:
             velocity = velocity / (len(boids) - 1)
             return (velocity - self.velocity) / 8
         return Vector2(0, 0)
+
+    # Avoid the hoiks
+    def tend_to_place(self, hoiks):
+        run = Vector2(0, 0)
+        for hoik in hoiks:
+            if (hoik.position - self.position).length() < self.radius:
+                run =  - (hoik.position - self.position).normalize()
+            if (hoik.position - self.position).length() < 7:
+                # Respawn boid if colided with hoik or obstacle
+                self.position = Vector2(random.uniform(0, self.screen_width), random.uniform(0, self.screen_height))
+        return run
+
+
 
     ###############
     ### Hoik rules
