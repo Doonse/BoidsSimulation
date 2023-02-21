@@ -1,6 +1,11 @@
-import random
+# Pygame 
 from pygame import Vector2
 import pygame as pg
+
+# Random
+import random
+
+# Rules class
 from rules import Rules
 
 class Hoik(Rules):
