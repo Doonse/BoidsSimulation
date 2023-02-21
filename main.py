@@ -21,7 +21,7 @@ def main(WIDTH, HEIGHT):
     # Create boids, hoiks and obstacles
     boids = [Boid(WIDTH, HEIGHT) for i in range(100)]
     hoiks = [Hoik(WIDTH, HEIGHT) for i in range(2)]
-    obstacles = [Obstacle(WIDTH, HEIGHT) for i in range(3)]
+    obstacles = [Obstacle(WIDTH, HEIGHT) for i in range(7)]
 
     running = True
     while running:
