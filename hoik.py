@@ -29,7 +29,6 @@ class Hoik(Rules):
                 self.size += 1 # Gain size
             if self.size > 20:
                 self.size = 20 # Max size
-
     # Lose size when not eating boids for a while 
     def shrink(self):
         self.size -= 0.01 # Lose size continuously
@@ -57,7 +56,7 @@ class Hoik(Rules):
     
     
     ### Update the position of the hoiks
-    def update(self, boids, hoiks):
+    def update(self, boids, hoiks, obstacles=[]):
 
         ### Weights of the rules. Attemt to make it more realistic
         w1 = 0.7 # Weight for chasing the closest boid
@@ -67,6 +66,7 @@ class Hoik(Rules):
         ### Rules hoiks follow
         chase = w1 * Rules.chase(self, boids) # Chase the closest boid
         efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) # Keep distance away from other hoiks. Avoid collision and converging on each other
+        dodge = w1 * Rules.tend_to_place(self, obstacles) # Avoid obstacles
         align = w3 * Rules.match_velocity(self, boids) # Match velocity 
 
         # Size, reproduction and death
@@ -76,7 +76,7 @@ class Hoik(Rules):
         self.die(hoiks)
 
         # Update velocity
-        self.velocity += chase + efficiency + align
+        self.velocity += chase + efficiency + align + dodge
 
         # Limit the speed of the hoiks 
         if self.size > 10:

@@ -61,7 +61,7 @@ class Rules:
             if (hoik.position - self.position).length() < self.radius:
                 run =  - (hoik.position - self.position).normalize()
             if (hoik.position - self.position).length() < 7:
-                # Respawn boid if colided with hoik or obstacle
+                # Respawn object if colided with other object
                 self.position = Vector2(random.uniform(0, self.screen_width), random.uniform(0, self.screen_height))
         return run
 
