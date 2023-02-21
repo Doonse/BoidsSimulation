@@ -20,7 +20,7 @@ class Hoik(Rules):
 
     ### Draw the hoiks on the screen
     def draw(self, screen):
-        pg.draw.circle(screen, (255, 0, 0), self.position, self.size)
+        pg.draw.circle(screen, (255, 0, 100), self.position, self.size)
 
     # Gain size when eating boids
     def grow(self, boids):
@@ -48,7 +48,7 @@ class Hoik(Rules):
         # Die if there are too many hoiks
         if len(hoiks) > 2:
             if self.size < 6:
-                if random.random() < 0.001:
+                if random.random() < 0.0005:
                     hoiks.remove(self)
             # Randomly die, maybe heart attack or something
             if random.random() < 0.0001:

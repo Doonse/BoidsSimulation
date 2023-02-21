@@ -12,4 +12,4 @@ class Obstacle:
         self.radius = 10
 
     def draw(self, screen):
-        pygame.draw.ellipse(screen, (0, 0, 255), (self.position.x - self.radius, self.position.y - self.radius, self.radius * 2, self.radius * 2), self.radius)
+        pygame.draw.ellipse(screen, (0, 100, 200), (self.position.x - self.radius, self.position.y - self.radius, self.radius * 2, self.radius * 2), self.radius)
