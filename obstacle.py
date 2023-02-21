@@ -11,6 +11,3 @@ class Obstacle:
 
     def draw(self, screen):
         pygame.draw.ellipse(screen, (0, 0, 255), (self.position.x - self.radius, self.position.y - self.radius, self.radius * 2, self.radius * 2), 1)
-
-    def update(self):
-        pass
