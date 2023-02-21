@@ -29,7 +29,7 @@ class Rules:
             return (center - self.position) / 100
         return Vector2(0, 0)
     
-    # Separation, boids try to keep a small distance away from eachother
+    # Separation, boids try to keep a small distance away from other objects (boids, obstacles)
     def keep_distance_away(self, boids, range=9):
         distance = Vector2()
         for boid in boids:
@@ -48,16 +48,6 @@ class Rules:
             velocity = velocity / (len(boids) - 1)
             return (velocity - self.velocity) / 8
         return Vector2(0, 0)
-
-    # Avoid the hoiks
-    def tend_to_place(self, hoiks):
-        run = Vector2(0, 0)
-        for hoik in hoiks:
-            if (hoik.position - self.position).length() < self.radius:
-                run =  - (hoik.position - self.position).normalize()
-        return run
-
-
 
     ###############
     ### Hoik rules

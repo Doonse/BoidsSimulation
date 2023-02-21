@@ -1,7 +1,9 @@
 import pygame as pg
 
-from boid import Boid # Import the Boid class from boid_test.py, its testing
+from boid import Boid
 from hoik import Hoik
+from obstacle import Obstacle
+
 
 
 WIDTH = 1200
@@ -16,6 +18,7 @@ def main(WIDTH, HEIGHT):
 
     boids = [Boid(WIDTH, HEIGHT) for i in range(100)]
     hoiks = [Hoik(WIDTH, HEIGHT) for i in range(2)]
+    obstacles = [Obstacle(WIDTH, HEIGHT) for i in range(5)]
 
     running = True
     while running:
@@ -33,6 +36,12 @@ def main(WIDTH, HEIGHT):
         for hoik in hoiks:
             hoik.draw(screen)
             hoik.update(boids, hoiks)
+
+        for obstacle in obstacles:
+            obstacle.draw(screen)
+            obstacle.update()
+
+        
 
         # Update the screen
         pg.display.flip()
