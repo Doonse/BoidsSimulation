@@ -24,11 +24,18 @@ class Hoik(Rules):
     # Gain size when eating boids
     def grow(self, boids):
         for boid in boids:
-            if boid.position != self.position:
-                if (boid.position - self.position).length() < self.size + 2: # + 2 for extra reach
-                    self.size += 1 # Gain size
-                if self.size > 20:
-                    self.size = 20 # Max size
+            if (boid.position - self.position).length() < self.size + 2: # + 2 for extra reach
+                self.size += 1 # Gain size
+            if self.size > 20:
+                self.size = 20 # Max size
+
+    # Lose size when not eating boids for a while 
+    def shrink(self):
+        self.size -= 0.1 # Lose size continuously
+        if self.size < 5: # Min size
+            self.size = 5 
+
+
     
     ### Update the position of the hoiks
     def update(self, boids, hoiks):
@@ -44,7 +51,8 @@ class Hoik(Rules):
         align = w3 * Rules.match_velocity(self, boids) # Match velocity 
 
         # Update size
-        Rules.grow(self, boids)
+        self.grow(boids)
+        self.shrink()
 
         # Update velocity
         self.velocity += chase + efficiency + align
