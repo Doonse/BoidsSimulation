@@ -21,6 +21,14 @@ class Boid(Rules):
     def draw(self, screen):
         pg.draw.circle(screen, (80, 150, 100), (int(self.position.x), int(self.position.y)), 4)
 
+    def remove(self, boids):
+        boids.remove(self)
+    
+    def add(self, boids):
+        if len(boids) < 100:
+            if random.random() < 0.001:
+                boids.append(Boid(self.screen_width, self.screen_height))
+
     ### Update the position of the boid
     def update(self, boids, hoiks, obstacles=[]):
         
@@ -33,12 +41,15 @@ class Boid(Rules):
         ### Neighbors in range
         n = Rules.neighbors(self, boids)
 
+        # Rebirth
+        self.add(boids) 
+
         ### Rules to follow
         cohesian = w1 * Rules.fly_towards_center(self, n)
         separation_from_boids = w2 * Rules.keep_distance_away(self, n, 9)
         alignment = w3 * Rules.match_velocity(self, n)
-        dodge_hoiks = w4 * Rules.tend_to_place(self, hoiks)
-        dodge_obs = w4 * Rules.tend_to_place(self, obstacles)
+        dodge_hoiks = w4 * Rules.tend_to_place(self, hoiks, boids)
+        dodge_obs = w4 * Rules.tend_to_place(self, obstacles, boids)
 
 
         # Update velocity 
