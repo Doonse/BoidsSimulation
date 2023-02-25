@@ -38,7 +38,7 @@ class Hoik(Rules):
     def reproduce(self, hoiks):
         if len(hoiks) < 10:
             if self.size > 10:
-                if random.random() < 0.001:
+                if random.random() < 0.01:
                     # Reproduce a new hoik next to the parent without overlapping and crashin the game
                     hoiks.append(Hoik(self.screen_width, self.screen_height))
                     hoiks[-1].position = self.position + Vector2(random.uniform(-1, 1), random.uniform(-1, 1))
