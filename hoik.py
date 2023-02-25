@@ -66,7 +66,7 @@ class Hoik(Rules):
         ### Rules hoiks follow
         chase = w1 * Rules.chase(self, boids) # Chase the closest boid
         efficiency = w2 * Rules.keep_distance_away(self, hoiks, 50) # Keep distance away from other hoiks. Avoid collision and converging on each other
-        dodge = w1 * Rules.tend_to_place(self, obstacles) # Avoid obstacles
+        dodge = Rules.tend_to_place(self, obstacles) # Avoid obstacles
         align = w3 * Rules.match_velocity(self, boids) # Match velocity 
 
         # Size, reproduction and death
